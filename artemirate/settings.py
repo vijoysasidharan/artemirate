@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-153@5k%eq-8lqfqt0^h2&w@$0fz8-xxt5nxmrl14dc$u_nc@&i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['198.13.51.163', 'www.artemirate.in', 'localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,13 +77,8 @@ WSGI_APPLICATION = 'artemirate.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_artemirate_ind',
-        'USER': 'admin_artemirate_ind',
-        'PASSWORD': 'Letmein@321',
-        'HOST': 'localhost',
-        'PORT': '',
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

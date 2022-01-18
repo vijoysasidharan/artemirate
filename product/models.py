@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 from collection.models import Collection
 
@@ -12,6 +13,7 @@ class Product(models.Model):
     main_image                  = models.ImageField(upload_to="products")
     stock                       = models.IntegerField()
     is_available                = models.BooleanField(default=True)
+    featured_product            = models.BooleanField(default=False)
     collection                  = models.ForeignKey(Collection, on_delete=models.CASCADE)
     created_on                  = models.DateTimeField(auto_now_add=True)
     updated_on                  = models.DateTimeField(auto_now=True)

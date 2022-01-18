@@ -23,8 +23,8 @@ def products(request, collection_slug=None):
         products_count = products.count()
     else:
         products = Product.objects.all().filter(is_available = True)
-        if(products.count() > 0):
-            products_count = products.count()
+        #if(products.count() > 0):
+            #products_count = products.count()
     
     context = {
         'collection': collection,

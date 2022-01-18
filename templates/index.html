@@ -42,7 +42,7 @@
                                             <!-- Product Image -->
                                             <div class="product-image">
                                                 <!-- product Image -->
-                                                <a href="product-layout1.html">
+                                                <a href="{{ collection.get_slug_url }}">
                                                     <!-- Image -->
                                                     <img class="primary blur-up lazyload" data-src="{{ collection.main_image.url }}" src="" alt="image" title="product" />
                                                     <!-- End Image -->
@@ -60,7 +60,7 @@
                                             <div class="product-details text-center">
                                                 <!-- Product Name -->
                                                 <div class="product-name">
-                                                    <h2><a href="product-layout1.html">{{ collection.collection_name }}</a></h2>
+                                                    <h2><a href="{{ collection.get_slug_url }}">{{ collection.collection_name }}</a></h2>
                                                 </div>
                                                 <!-- End Product Name -->
                                             </div>

@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 
 # Create your models here.
@@ -13,6 +14,9 @@ class Collection(models.Model):
     class Meta:
         verbose_name        = 'Collection'
         verbose_name_plural = 'Collections'
+
+    def get_slug_url(self):
+        return reverse('poducts_by_collection', args=[self.slug])
 
     def __str__(self):
         return self.collection_name

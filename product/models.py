@@ -1,5 +1,6 @@
 from django.db import models
 from collection.models import Collection
+from django.urls import reverse
 
 # Create your models here.
 
@@ -7,8 +8,8 @@ class Product(models.Model):
     product_name                    = models.CharField(max_length=200, unique=True)
     slug                            = models.SlugField(max_length=200, unique=True)
     description                     = models.TextField(max_length=500, blank=True)
-    old_price                       = models.IntegerField()
-    new_price                       = models.IntegerField()
+    old_price                       = models.DecimalField(max_digits=7, decimal_places=2)
+    new_price                       = models.DecimalField(max_digits=7, decimal_places=2)
     main_image                      = models.ImageField(upload_to="products")
     second_image                    = models.ImageField(upload_to="products", blank=True)
     stock                           = models.IntegerField()
@@ -21,6 +22,9 @@ class Product(models.Model):
     class Meta:
         verbose_name                = 'Product'
         verbose_name_plural         = 'Products'
+    
+    def get_slug_url(self):
+        return reverse('product_detail', args=[self.collection.slug, self.slug])
 
     def __str__(self):
         return self.product_name

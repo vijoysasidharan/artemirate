@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from collection.models import Collection
@@ -30,3 +29,17 @@ def products(request, collection_slug=None):
         'products_count': products_count
     }
     return render(request, 'products.html', context)
+
+def product_detail(request, collection_slug, product_slug):
+    try:
+        single_product = Product.objects.get(collection__slug=collection_slug, slug=product_slug)
+    except Exception as ex:
+        raise ex
+
+    context = {
+        'single_product': single_product,
+    }    
+    return render(request, 'product_detail.html', context)
+
+def cart(request):
+    return render(request, 'cart.html')

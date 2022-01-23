@@ -80,7 +80,7 @@
 
                     <!-- Desktop Logo -->
                     <div class="logo col-4 col-sm-4 col-md-2 col-lg-2 text-center">
-                        <a href="index.html"><img src="{% static 'images/logo/logo-white.png' %}" alt="Artemirate Logo" title="Artemirate" /></a>
+                        <a href="{% url 'index' %}"><img src="{% static 'images/logo/logo-white.png' %}" alt="Artemirate Logo" title="Artemirate" /></a>
                     </div>
                     <!-- End Desktop Logo -->
 
@@ -121,40 +121,21 @@
             <nav class="grid__item" id="AccessibleNav">
                 <ul id="siteNav" class="d-flex flex-wrap site-nav medium center m-auto hidearrow">
                     <li class="lvl1 parent">
-                        <a href="#">Home <i class="an an-angle-down"></i></a>
+                        <a href="{% url 'index' %}">Home <i class="an an-angle-down"></i></a>
                     </li>
                     <li class="lvl1 parent megamenu">
                         <a href="#">Dinnerware <i class="an an-angle-down"></i></a>
                         <div class="megamenu style2">
                             <ul class="row mmWrapper">
-                                <li class="lvl-1 col-md-3 col-lg-3">
-                                    <a href="#" class="site-nav lvl-1 menu-title">Plates</a>
-                                    <a href="shop-left-sidebar.html" class="catalogueImg mb-2"><img src="{% static 'images/collection/Artemirate_India_Plates.jpg' %}" alt="Plates" /></a>
-                                    <ul class="subLinks">
-                                        <li class="lvl-2"><a href="#" class="site-nav">Shop Now</a></li>
-                                    </ul>
-                                </li>
-                                <li class="lvl-1 col-md-3 col-lg-3">
-                                    <a href="#" class="site-nav lvl-1 menu-title">Bowls</a>
-                                    <a href="shop-left-sidebar.html" class="catalogueImg mb-2"><img src="{% static 'images/collection/Artemirate_India_Bowls.jpg' %}" alt="Bowls" /></a>
-                                    <ul class="subLinks">
-                                        <li class="lvl-2"><a href="#" class="site-nav">Shop Now</a></li>
-                                    </ul>
-                                </li>
-                                <li class="lvl-1 col-md-3 col-lg-3">
-                                    <a href="#" class="site-nav lvl-1 menu-title">Cups & Mugs</a>
-                                    <a href="shop-left-sidebar.html" class="catalogueImg mb-2"><img src="{% static 'images/collection/Artemirate_India_Cups_Mugs.jpg' %}" alt="Cups & Mugs" /></a>
-                                    <ul class="subLinks">
-                                        <li class="lvl-2"><a href="#" class="site-nav">Shop Now</a></li>
-                                    </ul>
-                                </li>
-                                <li class="lvl-1 col-md-3 col-lg-3">
-                                    <a href="#" class="site-nav lvl-1 menu-title">Coffee & Tea</a>
-                                    <a href="shop-left-sidebar.html" class="catalogueImg mb-2"><img src="{% static 'images/collection/Artemirate_India_Coffee_tea.jpg' %}" alt="Cofee & Tea" /></a>
-                                    <ul class="subLinks">
-                                        <li class="lvl-2"><a href="#" class="site-nav">Shop Now</a></li>
-                                    </ul>
-                                </li>
+                                {% for collection in collection_links %}
+                                    <li class="lvl-1 col-md-3 col-lg-3">
+                                        <a href="{{ collection.get_slug_url }}" class="site-nav lvl-1 menu-title">{{ collection.collection_name }}</a>
+                                        <a href="{{ collection.get_slug_url }}" class="catalogueImg mb-2"><img src="{{ collection.main_image.url }}" alt="{{ collection.collection_name }}" /></a>
+                                        <ul class="subLinks">
+                                            <li class="lvl-2"><a href="{{ collection.get_slug_url }}" class="site-nav">Shop Now</a></li>
+                                        </ul>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </li>
@@ -190,18 +171,11 @@
         <li class="lvl1 parent megamenu">
             <a href="#">Dinnerware <i class="an an-plus"></i></a>
             <ul>
-                <li>
-                    <a href="#" class="site-nav">Plates </a>
-                </li>
-                <li>
-                    <a href="#" class="site-nav">Bowls </a>
-                </li>
-                <li>
-                    <a href="#" class="site-nav">Cups & Mugs </a>
-                </li>
-                <li>
-                    <a href="#" class="site-nav">Coffee & Tea </a>
-                </li>
+                {% for collection in collection_links %}
+                    <li>
+                        <a href="{{ collection.get_slug_url }}" class="site-nav">{{ collection.collection_name }}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </li>
         <li class="lvl1 parent megamenu">

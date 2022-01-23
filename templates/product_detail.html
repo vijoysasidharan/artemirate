@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div id="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                <div class="section-header text-center mt-5">
+                    <h2 class="h2">{{ single_product.product_name }}</h2>                    
+                </div>
+            </div>
+        </div>
+        <div id="ProductSection-product-template" class="product-template__container prstyle2">
+            <!-- #ProductSection product template -->
+            <div class="product-single product-single-1">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="product-details-img product-single__photos bottom">
+                            <!-- Product Images -->
+                            <div class="zoompro-wrap product-zoom-right pl-20">
+                                <div class="zoompro-span">
+                                    <img class="blur-up lazyload zoompro" data-zoom-image="{{ single_product.main_image.url }}" alt="" src="{{ single_product.main_image.url }}" />               
+                                </div>
+                                <div class="product-labels"><span class="lbl pr-label1">new</span><span class="lbl on-sale">Exclusive</span></div>
+                            </div>
+                            <div class="product-thumb product-thumb-1">
+                                <div id="gallery" class="product-dec-slider-1 product-tab-left">
+                                    <a data-image="{{ single_product.main_image.url }}" data-zoom-image="{{ single_product.main_image.url }}" class="slick-slide slick-cloned active" data-slick-index="-4" aria-hidden="true" tabindex="-1">
+                                        <img class="blur-up lazyload" src="{{ single_product.main_image.url }}" alt="" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lightboximages">
+                                <a href="{{ single_product.main_image.url }}" data-size="1462x2048"></a>
+                            </div>
+                            <!-- End Product Images -->
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <!-- Product Info -->
+                        <div class="product-single__meta">
+                            <h1 class="product-single__title">{{ single_product.product_name }}</h1>
+                            <!-- Product Info -->
+                            <div class="prInfoRow">
+                                <div class="product-stock"> <span class="instock ">In Stock</span> <span class="outstock hide">Unavailable</span> </div>
+                                <div class="product-sku">SKU: <span class="variant-sku">19115-rdxs</span></div>
+                                <div class="product-review">
+                                    <a class="reviewLink d-flex flex-wrap align-items-center" href="#tab2">
+                                        <i class="an an-star"></i><i class="an an-star"></i><i class="an an-star"></i><i class="an an-star"></i><i class="an an-star-half-alt"></i>
+                                        <span class="spr-badge-caption">6 reviews</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Product Info -->
+                            <!-- Product Price -->
+                            <div class="product-single__price product-single__price-product-template">
+                                <span class="visually-hidden">Regular price</span>
+                                <s id="ComparePrice-product-template"><span class="money">$900.00</span></s>
+                                <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+                                    <span id="ProductPrice-product-template"><span class="money">$788.00</span></span>
+                                </span>
+                                <span class="product__policies rte ms-2" data-product-policies="">Tax included.</span>
+                            </div>
+                            <!-- End Product Price -->
+                            <!-- Product Description -->
+                            <div class="product-single__description rte">
+                                <p class="mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <ul class="checkmark">
+                                    <li>Wash Care: Hand Wash Cold</li>
+                                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                                    <li>Sed ut perspiciatis unde omnis iste natus error sit</li>
+                                    <li>Neque porro quisquam est qui dolorem ipsum quia dolor</li>
+                                    <li>Lorem Ipsum is not simply random text.</li>
+                                    <li>Size And Fit: The specifications for the model are: Height 5 feet 8 inches, bust 34 inches, waist 28 inches. The model is wearing size S.</li>
+                                </ul>
+                            </div>
+                            <!-- End Product Description -->
+                            <!-- Info links -->
+                            <p class="infolinks px-0 my-2">
+                                <a href="#ShippingInfo" class="mfp btn shippingInfo">Delivery &amp; Returns</a>
+                                <a href="#sizechart" class="sizelink btn"> Size Guide</a>
+                                <a href="#productInquiry" class="emaillink btn"> Ask About this Product</a>
+                            </p>
+                            <!-- End Info links -->
+                            <!-- Form -->
+                            <form method="post" action="{% url 'add_to_cart' single_product.id %}" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template hidedropdown product-form-border" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <!-- Product Action -->
+                                <div class="product-action clearfix">
+                                    {% if single_product.stock <= 0 %}            
+                                    <h5 class="text-danger">OUT OF STOCK</h5>
+                                    {% else %}
+                                    <div class="product-form__item--quantity">
+                                        <div class="wrapQtyBtn">
+                                            <div class="qtyField">
+                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon an an-minus" aria-hidden="true"></i></a>
+                                                <input type="text" name="quantity" value="1" class="product-form__input qty" readonly/>
+                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon an an-plus" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>                
+                                    <div class="product-form__item--submit">
+                                        <button type="submit" name="add" class="btn product-form__cart-submit"><span>Add to cart</span></button>
+                                    </div>
+                                    <div class="payment-button" data-shopify="payment-button">
+                                        <button type="button" class="payment-button__button payment-button__button--unbranded">Buy it now</button>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <!-- End Product Action -->
+                                <!-- Wishlist - Compare -->
+                                <div class="infolinks d-flex flex-wrap align-items-center px-0 mb-0">
+                                    <a class="wishlist add-to-wishlist d-flex align-items-center" href="wishlist.html"><i class="icon an an-heart me-1" aria-hidden="true"></i> <span>Add to Wishlist</span></a>
+                                    <a class="wishlist add-to-wishlist d-flex align-items-center" href="compare.html"><i class="icon an an-sync me-1" aria-hidden="true"></i> <span>Add to Compare</span></a>
+                                </div>
+                                <!-- End Wishlist - Compare -->
+                            </form>
+                            <!-- End Form -->
+                            <!-- Store Info -->
+                            <div class="safecheckout row my-3">
+                                <div class="item col-lg-3">
+                                    <div class="icon"><i class="icon an an-truck"></i></div>
+                                    <div class="content">Free & fast shipping</div>
+                                </div>
+                                <div class="item col-lg-3">
+                                    <div class="icon"><i class="icon an an-certificate"></i></div>
+                                    <div class="content">Secure checkout</div>
+                                </div>
+                                <div class="item col-lg-3">
+                                    <div class="icon"><i class="icon an an-thumbs-up"></i></div>
+                                    <div class="content">Satisfaction guarantee</div>
+                                </div>
+                                <div class="item col-lg-3">
+                                    <div class="icon"><i class="icon an an-lock"></i></div>
+                                    <div class="content">Privacy protected</div>
+                                </div>
+                            </div>
+                            <!-- End Store Info -->
+                            <!-- Product Feature -->
+                            <div id="freeShipMsg" class="freeShipMsg rte mb-1" data-price="199"><i class="icon an an-truck" aria-hidden="true"></i> GETTING CLOSER! ONLY <b class="freeShip"><span class="money" data-currency-usd="$199.00" data-currency="USD">$199.00</span></b> AWAY FROM <b>FREE SHIPPING!</b></div>
+                            <div class="shippingMsg rte mb-1"><i class="icon an an-clock-o an-2x" aria-hidden="true"></i> ESTIMATED DELIVERY BETWEEN <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</div>
+                            <div class="userViewMsg rte" data-user="20" data-time="5000"><i class="icon an an-users" aria-hidden="true"></i> <strong class="uersView">25</strong> People are looking at this product right now</div>
+                            <div class="type-product mb-1">
+                                <span>Type:</span> <a href="#">Dress</a>
+                            </div>
+                            <div class="category-products-list mb-1">
+                                <span class="me-2">Category:</span><a href="#">All Products</a>, <a href="#">Hot Collection</a>, <a href="#">New Arrivals</a>, <a href="#">Women</a>  
+                            </div>
+                            <!-- End Product Feature -->
+                            <!-- Social Sharing -->
+                            <div class="social-sharing mx-0 mb-1">
+                                <span class="label">Share:</span>
+                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-facebook" data-bs-toggle="tooltip" data-bs-placement="top" title="Share on Facebook">
+                                    <i class="icon an an-facebook" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Facebook</span>
+                                </a>
+                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-twitter" data-bs-toggle="tooltip" data-bs-placement="top" title="Tweet on Twitter">
+                                    <i class="icon an an-twitter" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Tweet</span>
+                                </a>
+                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-google" data-bs-toggle="tooltip" data-bs-placement="top" title="Share on google+">
+                                    <i class="icon an an-google-plus" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Google+</span>
+                                </a>
+                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-pinterest" data-bs-toggle="tooltip" data-bs-placement="top" title="Pin on Pinterest">
+                                    <i class="icon an an-pinterest-p" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Pin it</span>
+                                </a>
+                                <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-email" data-bs-toggle="tooltip" data-bs-placement="top" title="Share by Email">
+                                    <i class="icon an an-envelope" aria-hidden="true"></i><span class="share-title" aria-hidden="true">Email</span>
+                                </a>
+                            </div>
+                            <!-- End Social Sharing -->
+                            <div class="trustseal-img mt-4"><img src="assets/images/checkout-cards.png" alt=""></div>
+                        </div>
+                        <!-- End Product Info -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -738,7 +738,7 @@ a.quick-view:hover, a.wishlist:hover, a.cartIcon:hover, .variants.add button:hov
 .grid-products .item .grid-view-item__vendor{ color:#555555; margin-top:4px; margin-bottom:-4px; text-transform:none; }
 .grid-products .item .product-price { margin:4px 0 5px; color:#555555; font-size:15px; font-weight:500; }
 .product-price .old-price { color:#555555; font-size:12px; opacity:0.8; text-decoration:line-through; }
-.product-price .old-price + .price { padding-left:5px; color:#ed1313 !important; letter-spacing:normal; }
+.product-price .old-price + .price { padding-left:5px; color:#000 !important; letter-spacing:normal; }
 .product-price .price { color:#555555; }
 .product-price__sale, .product__price--sale { color:#ed1313 !important; }
 
@@ -2752,7 +2752,7 @@ body.home9-simple, .home9-simple .h1, .home9-simple .h2, .home9-simple .h3, .hom
 .payment-icons .icon { font-size:32px; }
 
 .footer-bottom { padding:20px 0; text-transform:uppercase; border-top:1px solid #e8e8e8; color:#232323; letter-spacing:1px; }
-.footer-bottom a { color:#232323; }
+.footer-bottom a { color:#fff; }
 .footer-bottom a:hover { text-decoration:underline; }
 .footer-bottom span { letter-spacing:1px; }
 .footer-bottom ul { margin: 0 -8px; }

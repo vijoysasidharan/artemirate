@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Product, ProductGallery
+from . models import Product, ProductGallery, Variant
 import admin_thumbnails
 # Register your models here.
 
@@ -13,6 +13,12 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('product_name', 'old_price', 'new_price', 'stock', 'collection', 'is_available')
     inlines = [ProductGalleryInline]
 
+class VariantAdmin(admin.ModelAdmin):
+    list_display = ('product', 'category', 'value', 'is_active')
+    list_editable = ('is_active', )
+    list_filter = ('product', 'category', 'value')
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductGallery)
+admin.site.register(Variant, VariantAdmin)

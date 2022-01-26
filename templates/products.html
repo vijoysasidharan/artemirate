@@ -6,7 +6,12 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
                 <div class="section-header text-center mt-5">
-                    <h2 class="h2">{{ collection.collection_name }}</h2>
+                    {% if 'search' in request.path %}
+                        <h2 class="h2">SEARCH RESULT</h2>
+                    {% else %}
+                        <h2 class="h2">{{ collection.collection_name }}</h2>
+                        
+                    {% endif %}
                     <p>Here you can set up to 8 tabs for your store collection.<br/>This will look perfect on all device.</p>
                 </div>
                 <div class="productList">
@@ -43,70 +48,99 @@
                     </div>
                     <div class="grid-products grid--view-items product-four-load-more">
                         <div class="row">
-                            {% for product in products %}
-                                <div class="col-6 col-sm-6 col-md-4 col-lg-3 item" style="display: block;">
-                                    <!-- Product Image -->
-                                    <div class="product-image">
+                            {% if products %}
+                                {% for product in products %}
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 item" style="display: block;">
                                         <!-- Product Image -->
-                                        <a href="{{ product.get_slug_url }}">
-                                            <!-- Image -->
-                                            <img class="primary blur-up lazyloaded" data-src="{{ product.main_image.url }}" src="{{ product.main_image.url }}" alt="image" title="product">
-                                            <!-- End Image -->
-                                            <!-- Hover Image -->
-                                            <img class="hover blur-up lazyloaded" data-src="{{ product.second_image.url }}" src="{{ product.second_image.url }}" alt="image" title="product">
-                                            <!-- End Hover Image -->
-                                            <!-- Product Label -->
-                                            <div class="product-labels rectangular"><span class="lbl pr-label1">new</span></div>
-                                            <!-- End Product Label -->
-                                        </a>
+                                        <div class="product-image">
+                                            <!-- Product Image -->
+                                            <a href="{{ product.get_slug_url }}">
+                                                <!-- Image -->
+                                                <img class="primary blur-up lazyloaded" data-src="{{ product.main_image.url }}" src="{{ product.main_image.url }}" alt="image" title="product">
+                                                <!-- End Image -->
+                                                <!-- Hover Image -->
+                                                <img class="hover blur-up lazyloaded" data-src="{{ product.second_image.url }}" src="{{ product.second_image.url }}" alt="image" title="product">
+                                                <!-- End Hover Image -->
+                                                <!-- Product Label -->
+                                                <div class="product-labels rectangular"><span class="lbl pr-label1">new</span></div>
+                                                <!-- End Product Label -->
+                                            </a>
+                                            <!-- End Product Image -->
+
+                                            <!-- Product Button -->
+                                            <div class="button-set">
+                                                <div class="quickview-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="quick view">
+                                                    <a href="#open-quickview-popup" class="btn quick-view-popup quick-view"><i class="icon an an-search"></i></a>
+                                                </div>
+                                                <div class="variants add" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="add to cart">
+                                                    <form class="addtocart" action="#" method="post">
+                                                        <a href="#open-addtocart-popup" class="btn cartIcon btn-addto-cart open-addtocart-popup"><i class="icon an an-shopping-bag"></i></a>
+                                                    </form>
+                                                </div>
+                                                <div class="wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="add to wishlist">
+                                                    <a href="#open-wishlist-popup" class="open-wishlist-popup wishlist add-to-wishlist"><i class="icon an an-heart"></i></a>
+                                                </div>
+                                            </div>
+                                            <!-- End Product Button -->
+                                        </div>
                                         <!-- End Product Image -->
 
-                                        <!-- Product Button -->
-                                        <div class="button-set">
-                                            <div class="quickview-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="quick view">
-                                                <a href="#open-quickview-popup" class="btn quick-view-popup quick-view"><i class="icon an an-search"></i></a>
+                                        <!-- Product Details -->
+                                        <div class="product-details text-center">
+                                            <!-- Product Name -->
+                                            <div class="product-name">
+                                                <a href="{{ product.get_slug_url }}">{{ product.product_name | upper}}</a>
                                             </div>
-                                            <div class="variants add" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="add to cart">
-                                                <form class="addtocart" action="#" method="post">
-                                                    <a href="#open-addtocart-popup" class="btn cartIcon btn-addto-cart open-addtocart-popup"><i class="icon an an-shopping-bag"></i></a>
-                                                </form>
+                                            <!-- End Product Name -->
+                                            <!-- Product Price -->
+                                            <div class="product-price">
+                                                <span class="old-price rupee">₹{{ product.old_price }}</span>
+                                                <span class="price rupee">₹{{ product.new_price }}</span>
                                             </div>
-                                            <div class="wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="add to wishlist">
-                                                <a href="#open-wishlist-popup" class="open-wishlist-popup wishlist add-to-wishlist"><i class="icon an an-heart"></i></a>
+                                            <!-- End Product Price -->
+                                            <!-- Product Review -->
+                                            <div class="product-review">
+                                                <i class="an an-star"></i>
+                                                <i class="an an-star"></i>
+                                                <i class="an an-star"></i>
+                                                <i class="an an-star"></i>
+                                                <i class="an an-star-half-alt"></i>
                                             </div>
+                                            <!-- End Product Review -->
                                         </div>
-                                        <!-- End Product Button -->
+                                        <!-- End Product Details -->
+                                        <div class="text-center mt-3"><a href="{{ product.get_slug_url }}" class="btn product-form__cart-submit">VIEW OPTIONS</a></button></div>
                                     </div>
-                                    <!-- End Product Image -->
-
-                                    <!-- Product Details -->
-                                    <div class="product-details text-center">
-                                        <!-- Product Name -->
-                                        <div class="product-name">
-                                            <a href="{{ product.get_slug_url }}">{{ product.product_name | upper}}</a>
-                                        </div>
-                                        <!-- End Product Name -->
-                                        <!-- Product Price -->
-                                        <div class="product-price">
-                                            <span class="old-price rupee">₹{{ product.old_price }}</span>
-                                            <span class="price rupee">₹{{ product.new_price }}</span>
-                                        </div>
-                                        <!-- End Product Price -->
-                                        <!-- Product Review -->
-                                        <div class="product-review">
-                                            <i class="an an-star"></i>
-                                            <i class="an an-star"></i>
-                                            <i class="an an-star"></i>
-                                            <i class="an an-star"></i>
-                                            <i class="an an-star-half-alt"></i>
-                                        </div>
-                                        <!-- End Product Review -->
-                                    </div>
-                                    <!-- End Product Details -->
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            {% else %}
+                                <h2 class="h2">No result found for your search query. Please try again with another keyword.</h2>
+                            {% endif %}
                         </div>
                     </div>
+                </div>
+                <hr class="clear">
+                <div class="pagination">
+                    {% if products.has_other_pages %}
+                    <ul>
+                        {% if products.has_previous %}
+                        <li class="prev"><a href="?page={{ products.previous_page_number }}"><i class="icon an an-caret-left" aria-hidden="true"></i></a></li>
+                        {% else %}
+                        <li class="prev disabled"><a href="javascript:void(0)"><i class="icon an an-caret-left" aria-hidden="true"></i></a></li>
+                        {% endif %}
+                        {% for i in products.paginator.page_range %}
+                            {% if products.number == i %}
+                            <li class="active"><a href="#">{{ i }}</a></li>
+                            {% else %}
+                            <li class=""><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if products.has_next %}
+                        <li class="next"><a href="?page={{ products.next_page_number }}"><i class="icon an an-caret-right" aria-hidden="true"></i></a></li>
+                        {% else %}
+                        <li class="next disabled"><a href="javascript:void(0)"><i class="icon an an-caret-right" aria-hidden="true"></i></a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>

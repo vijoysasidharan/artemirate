@@ -70,7 +70,7 @@
                     <div class="col-4 col-sm-4 col-md-4 col-lg-5 d-none d-lg-block">
                         <!-- Search -->
                         <div class="site-header__search search-bar-inline">
-                            <form action="#" class="search-bar__form d-flex position-relative">
+                            <form action="{% url 'search' %}" class="search-bar__form d-flex position-relative" method="get">
                                 <input class="search__input" type="search" name="q" value="" placeholder="Search entire store..." aria-label="Search" autocomplete="off" />
                                 <button class="go-btn search__button" type="submit"><i class="icon an an-search"></i></button>
                             </form>
@@ -104,7 +104,7 @@
                             <!-- End Wishlist -->
                             <!-- Minicart -->
                             <div class="item site-cart">
-                                <a href="cart.html" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">(0)</span></a>
+                                <a href="{% url 'cart' %}" class="icon-cart site-header-cart btn-minicart text-capitalize" data-bs-toggle="modal" data-bs-target="#minicart-drawer"><i class="icon an an-shopping-bag"></i><span class="text align-middle ms-1 d-none d-md-inline-block">Cart</span><span id="CartCount" class="site-header__cart-count1 ms-1" data-cart-render="item_count">({{ cart_item_count }})</span></a>
                             </div>
                             <!-- End Minicart -->
                         </div>

@@ -10,69 +10,87 @@
     </div>
     <div class="container">
         <div class="row">
-            <!-- Main Content -->
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8 main-col">
-                <form action="#" method="post" class="cart style2">
-                    <table>
-                        <thead class="cart__row cart__header">
-                            <tr>
-                                <th colspan="2" class="text-center">Product</th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-end">Total</th>
-                                <th class="action">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for cart_item in cart_items %}
-                            <tr class="cart__row border-bottom line1 cart-flex border-top">                                
-                                <td class="cart__image-wrapper cart-flex-item">
-                                    <a href="{{ cart_item.product.get_slug_url }}"><img class="cart__image blur-up lazyload" data-src="{{ cart_item.product.main_image.url }}" src="{{ cart_item.product.main_image.url }}" alt="Elastic Waist Dress - Navy / Small" /></a>
-                                </td>
-                                <td class="cart__meta small--text-left cart-flex-item">
-                                    <div class="list-view-item__title">
-                                        <a href="{{ cart_item.product.get_slug_url }}">{{ cart_item.product.product_name }}</a>
-                                    </div>
-                                    <div class="cart__meta-text">
-                                        Color: Navy, Size: Small<br>
-                                    </div>
-                                </td>
-                                <td class="cart__price-wrapper cart-flex-item">
-                                    <span class="money rupee">₹{{ cart_item.product.new_price }}</span>
-                                    <div class="cart__meta-text">
-                                        
-                                    </div>
-                                </td>
-                                <td class="cart__update-wrapper cart-flex-item text-end">
-                                    <div class="cart__qty text-center">
-                                        <div class="qtyField">
-                                            <a class="qtyBtn minus" href="{% url 'remove_from_cart' cart_item.product.id %}"><i class="icon an an-minus"></i></a>
-                                            <input class="cart__qty-input qty" type="text" name="updates[]" value="{{ cart_item.quantity }}" pattern="[0-9]*" readonly/>
-                                            <a class="qtyBtn plus" href="{% url 'add_to_cart' cart_item.product.id %}"><i class="icon an an-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-end small--hide cart-price">
-                                    <span class="money rupee">₹{{ cart_item.sub_total }}</span>
-                                </td>
-                                <td class="text-center small--hide"><a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn--secondary cart__remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove item"><i class="icon an an-times"></i></a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" class="text-start"><a href="#" class="btn--link cart-continue"><i class="icon an an-chevron-circle-left"></i> Continue shopping</a></td>
-                                <td colspan="3" class="text-end"><button type="submit" name="update" class="btn--link cart-update"><i class="icon an an-sync"></i> Update</button></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-
-                    <div class="currencymsg">We processes all orders in USD. While the content of your cart is currently displayed in USD, the checkout will use USD at the most current exchange rate.</div>
-
-                    <hr> 
-                </form>                   
+            {% if not cart_items %}
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                <div class="section-header text-center mt-5">
+                    <h2 class="h2">Your Cart is Empty!</h2>
+                    <div class="text-center"><a href="{% url 'index' %}">Continue Shopping</a></div>                    
+                </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 cart__footer">
+            {% else %}
+            <!-- Main Content -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 main-col cart style2">
+                <table>
+                    <thead class="cart__row cart__header">
+                        <tr>
+                            <th colspan="2" class="text-center">Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-end">Total</th>
+                            <th class="action">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cart_item in cart_items %}
+                        <tr class="cart__row border-bottom line1 cart-flex border-top">                                
+                            <td class="cart__image-wrapper cart-flex-item">
+                                <a href="{{ cart_item.product.get_slug_url }}"><img class="cart__image blur-up lazyload" data-src="{{ cart_item.product.main_image.url }}" src="{{ cart_item.product.main_image.url }}" alt="Elastic Waist Dress - Navy / Small" /></a>
+                            </td>
+                            <td class="cart__meta small--text-left cart-flex-item">
+                                <div class="list-view-item__title">
+                                    <a href="{{ cart_item.product.get_slug_url }}">{{ cart_item.product.product_name }}</a>
+                                </div>
+                                <div class="cart__meta-text">
+                                    {% if cart_item.variants.all %}
+                                        {% for item in cart_item.variants.all %}
+                                            {{ item.category | capfirst }}: {{ item.value }}, 
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="cart__price-wrapper cart-flex-item">
+                                <span class="money rupee">₹{{ cart_item.product.new_price }}</span>
+                                <div class="cart__meta-text">
+                                    
+                                </div>
+                            </td>
+                            <td class="cart__update-wrapper cart-flex-item text-end">
+                                <div class="cart__qty text-center">
+                                    <div class="qtyField">
+                                        <form method="POST" action="{% url 'add_to_cart' cart_item.product.id %}">
+                                            <a class="qtyBtn minus" href="{% url 'remove_from_cart' cart_item.product.id cart_item.id %}"><i class="icon an an-minus"></i></a>
+                                            <input class="cart__qty-input qty" type="text" name="updates" value="{{ cart_item.quantity }}" pattern="[0-9]*" readonly/>
+                                            
+                                                {% csrf_token %}
+                                                {% for item in cart_item.variants.all %}
+                                                    <input type="hidden" name="{{ item.category | lower }}" value="{{ item.value | capfirst }}">
+                                                {% endfor %}
+                                                <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" name="add" class="qtyBtn plus"><i class="icon an an-plus"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-end small--hide cart-price">
+                                <span class="money rupee">₹{{ cart_item.sub_total }}</span>
+                            </td>
+                            <td class="text-center small--hide"><a onClick="return confirm('Want to remove this item from the Cart?')" href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn--secondary cart__remove" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove item"><i class="icon an an-times"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-start"><a href="#" class="btn--link cart-continue"><i class="icon an an-chevron-circle-left"></i> Continue shopping</a></td>
+                            <td colspan="3" class="text-end"><button type="submit" name="update" class="btn--link cart-update"><i class="icon an an-sync"></i> Update</button></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="currencymsg">We processes all orders in USD. While the content of your cart is currently displayed in USD, the checkout will use USD at the most current exchange rate.</div>
+
+                <hr>                   
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 cart__footer">
                 <div class="cart-note">
                     <div class="solid-border">
                         <h5><label for="CartSpecialInstructions" class="cart-note__label small--text-center">Add a note to your order</label></h5>
@@ -90,9 +108,10 @@
                         <label for="1532947863384-0">I agree with the terms and conditions</label>
                     </div>
                     <a href="checkout.html" id="cartCheckout" class="btn btn--small-wide checkout">Proceed To Checkout</a>
-                    <div class="paymnet-img"><img src="assets/images/payment-img.jpg" alt="Payment"></div>
+                    <div class="paymnet-img"><img src="{% static '/images/payment-img.jpg' %}" alt="Payment"></div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

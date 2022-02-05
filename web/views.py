@@ -27,7 +27,7 @@ def products(request, collection_slug=None):
         products = Product.objects.all().filter(is_available = True).order_by('id')        
         products_count = products.count()
     
-    paginator = Paginator(products, 12) #Numer of products per page
+    paginator = Paginator(products, 8) #Numer of products per page
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
     

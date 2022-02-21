@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from collection.models import Collection
 from product.models import Product
 from cart.models import Cart, CartItem
+from web.models import *
 from django.db.models import Q
 from cart.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator

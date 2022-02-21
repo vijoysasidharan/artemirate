@@ -1,6 +1,3 @@
-from statistics import mode
-from tkinter import CASCADE
-from turtle import shape
 from django.db import models
 from collection.models import Collection
 from web.models import *

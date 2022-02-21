@@ -1,5 +1,9 @@
+from statistics import mode
+from tkinter import CASCADE
+from turtle import shape
 from django.db import models
 from collection.models import Collection
+from web.models import *
 from django.urls import reverse
 
 # Create your models here.
@@ -8,6 +12,10 @@ class Product(models.Model):
     product_name                    = models.CharField(max_length=200, unique=True)
     slug                            = models.SlugField(max_length=200, unique=True)
     description                     = models.TextField(max_length=500, blank=True)
+    material                        = models.ForeignKey(ProductMaterial, on_delete=models.CASCADE, null=True)
+    type                            = models.ForeignKey(ProductType, on_delete=models.CASCADE, null=True)
+    shape                           = models.ForeignKey(ProductShape, on_delete=models.CASCADE, null=True)
+    usage                           = models.ForeignKey(ProductUsage, on_delete=models.CASCADE, null=True)
     old_price                       = models.DecimalField(max_digits=7, decimal_places=2)
     new_price                       = models.DecimalField(max_digits=7, decimal_places=2)
     main_image                      = models.ImageField(upload_to="products")

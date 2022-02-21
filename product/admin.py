@@ -12,6 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('product_name', )}
     list_display = ('product_name', 'old_price', 'new_price', 'stock', 'collection', 'is_available')
     inlines = [ProductGalleryInline]
+    list_per_page = 15
 
 class VariantAdmin(admin.ModelAdmin):
     list_display = ('product', 'category', 'value', 'is_active')

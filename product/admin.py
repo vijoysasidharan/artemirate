@@ -13,6 +13,8 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('product_name', 'old_price', 'new_price', 'stock', 'collection', 'is_available')
     inlines = [ProductGalleryInline]
     list_per_page = 15
+    list_filter = ('product_name', 'collection')
+    search_fields = ['product_name']
 
 class VariantAdmin(admin.ModelAdmin):
     list_display = ('product', 'category', 'value', 'is_active')
